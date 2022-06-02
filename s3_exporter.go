@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"net/http"
 	"os"
@@ -237,6 +238,8 @@ func main() {
 		endpointURL    = app.Flag("s3.endpoint-url", "Custom endpoint URL").Default("").String()
 		disableSSL     = app.Flag("s3.disable-ssl", "Custom disable SSL").Bool()
 		forcePathStyle = app.Flag("s3.force-path-style", "Custom force path style").Bool()
+		insecureTLS    = app.Flag("tls.insecure", "Disable TLS certificate verification").Bool()
+		timeout        = app.Flag("http.timeout", "HTTP Timeout").Default("10").Int()
 	)
 
 	log.AddFlags(app)
@@ -259,6 +262,17 @@ func main() {
 
 	cfg.WithDisableSSL(*disableSSL)
 	cfg.WithS3ForcePathStyle(*forcePathStyle)
+
+	client := &http.Client{
+		Timeout: time.Duration(*timeout) * time.Second,
+	}
+	if *insecureTLS {
+		tr := &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
+		client.Transport = tr
+	}
+	cfg.HTTPClient = client
 
 	svc := s3.New(sess, cfg)
 
