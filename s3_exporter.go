@@ -242,7 +242,6 @@ func main() {
 		timeout        = app.Flag("http.timeout", "HTTP Timeout").Default("10").Int()
 	)
 
-	log.AddFlags(app)
 	app.Version(version.Print(namespace + "_exporter"))
 	app.HelpFlag.Short('h')
 	kingpin.MustParse(app.Parse(os.Args[1:]))
