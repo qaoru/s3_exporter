@@ -35,7 +35,7 @@ export AWS_SDK_LOAD_CONFIG=true
 ### Docker
 
 ```
-docker pull ribbybibby/s3-exporter
+docker pull qaoru/s3-exporter
 ```
 
 You will need to supply AWS credentials to the container, as mentioned in the previous section, either by setting the appropriate environment variables with `-e`, or by mounting your `~/.aws/` directory with `-v`.

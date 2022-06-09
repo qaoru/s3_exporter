@@ -19,5 +19,5 @@ builds:
       -X github.com/prometheus/common/version.BuildDate={{.Env.APP_BUILD_DATE}}
 release:
   github:
-    owner: ribbybibby
+    owner: qaoru
     name: s3_exporter
