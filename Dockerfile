@@ -1,4 +1,4 @@
-FROM golang:1.15-buster AS build
+FROM golang:1.20-buster AS build
 
 ADD . /tmp/s3_exporter
 
